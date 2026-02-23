@@ -1,7 +1,7 @@
 FROM python:3.12-slim
 
 RUN apt-get update && apt-get install -y --no-install-recommends \
-    xvfb xauth gosu \
+    gosu \
     libgtk-3-0 libx11-xcb1 libxfixes3 libxrandr2 libxtst6 libx11-6 \
     libxcomposite1 libasound2 libdbus-glib-1-2 libpci3 libxss1 \
     libnss3 libatk1.0-0 libatk-bridge2.0-0 libcups2 libdrm2 libgbm1 \

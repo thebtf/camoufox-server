@@ -11,8 +11,4 @@ if [ "$(id -u camoufox)" != "$PUID" ] || [ "$(id -g camoufox)" != "$PGID" ]; the
     chown -R camoufox:camoufox /home/camoufox
 fi
 
-# Virtual display for anti-detection (better than headless mode)
-Xvfb :99 -screen 0 1920x1080x24 &
-export DISPLAY=:99
-
 exec gosu camoufox python3 /home/camoufox/launch_server.py
