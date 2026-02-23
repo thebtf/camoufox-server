@@ -17,7 +17,7 @@ WORKDIR /home/camoufox
 RUN python -m camoufox fetch
 
 COPY launch_server.py entrypoint.sh ./
-RUN chmod +x entrypoint.sh && chown -R camoufox:camoufox /home/camoufox
+RUN chmod +x entrypoint.sh && chown -R camoufox:users /home/camoufox
 
 EXPOSE 59001
 
