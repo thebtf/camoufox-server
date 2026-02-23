@@ -13,8 +13,16 @@ RUN pip install --no-cache-dir camoufox[geoip]
 RUN useradd -m -u 1001 -g 100 camoufox
 WORKDIR /home/camoufox
 
-# Fetch browser binary + GeoIP database (needs write to site-packages)
+# Fetch browser binary + GeoIP database as root (writes to site-packages)
 RUN python -m camoufox fetch
+
+# Pre-populate user cache so runtime doesn't trigger re-download.
+# camoufox uses platformdirs.user_cache_dir("camoufox") = ~/.cache/camoufox
+# Build runs as root → cache lands in /root/.cache/camoufox
+# Runtime runs as camoufox → expects /home/camoufox/.cache/camoufox
+# Copy from root's cache to camoufox user's cache path.
+RUN mkdir -p /home/camoufox/.cache && \
+    cp -a /root/.cache/camoufox /home/camoufox/.cache/camoufox
 
 COPY launch_server.py entrypoint.sh ./
 RUN chmod +x entrypoint.sh && chown -R camoufox:users /home/camoufox
