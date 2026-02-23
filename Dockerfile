@@ -13,10 +13,8 @@ RUN pip install --no-cache-dir camoufox[geoip]
 RUN useradd -m -u 1001 -g 100 camoufox
 WORKDIR /home/camoufox
 
-# Fetch browser binary as camoufox user
-USER camoufox
+# Fetch browser binary + GeoIP database (needs write to site-packages)
 RUN python -m camoufox fetch
-USER root
 
 COPY launch_server.py entrypoint.sh ./
 RUN chmod +x entrypoint.sh && chown -R camoufox:camoufox /home/camoufox
