@@ -10,7 +10,7 @@ RUN apt-get update && apt-get install -y --no-install-recommends \
 
 RUN pip install --no-cache-dir camoufox[geoip]
 
-RUN groupadd -g 100 camoufox && useradd -m -u 1001 -g 100 camoufox
+RUN useradd -m -u 1001 -g 100 camoufox
 WORKDIR /home/camoufox
 
 # Fetch browser binary as camoufox user
